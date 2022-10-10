@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>hamsterbase</title>
+</head>
+<body>
+  <h1> hamster database for cool hamsters </h1>
+  <form action="/hamsters" method="POST">
+    <input type="text" placeholder="hamster" name="hamster">
+    <input type="text" placeholder="attribute" name="attribute">
+    <button type="submit">Submit</button>
+  </form>
+  <h2> Books </h2>
+
+<ul class="hamsters">
+  <!-- Loop through quotes -->
+  <% for(var i = 0; i < hamsters.length; i++) {%>
+    <li class="hamster">
+      <!-- Output name from the iterated quote object -->
+      <span><%= hamsters[i].hamster %></span>:
+      <!-- Output quote from the iterated quote object -->
+      <span><%= hamsters[i].attribute %></span>
+    </li>
+  <% } %>
+</ul>
+
+<div>
+    <h2>who is the coolest hamster?</h2>
+    <p>
+      replace hank with a cooler hamster of your choosing! 
+    </p>
+    <p>
+      delete hank because hank's just ok 
+    </p>
+    <button id="update-button">replace a hamster</button>
+</div>
+
+<div>
+    <h2>remove that hamster</h2>
+    <p>
+      delete one of the hamsters, if there are no hamsters, enter a hamster above!
+    </p>
+    <button id="delete-button">delete a hamster</button>
+    <div id="message"></div>
+  </div>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+<script src="/main.js"></script>
+</body>
+</html>

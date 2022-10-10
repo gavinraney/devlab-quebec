@@ -15,9 +15,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.set('view engine', 'ejs');
 
 app.get('/', function (req, res) {
-    // res.sendFile(path.join(__dirname, "index.html" )); 
-    // res.send('Hello ' + userName + ' from Node/Express/Heroku');
-
     client.connect(err => {
         const collection = client.db("test").collection("devices");
         console.log('connected!');
@@ -33,14 +30,57 @@ app.get('/', function (req, res) {
             // client.close();
         
     });
-
-        // res.send(`Hello Express from inside my client connect f/n!`); 
 });
 
+
+    app.get('/', (req,res)=>{
+        db.collection('hamsters').find().toArray()
+          .then(results => {
+            res.render('index.ejs', { hamsters: results })
+          })
+          .catch(error => console.error(error))
+    })
     
-
-    // res.render('index',  {     }    );
-
+    app.post('/hamsters', (req,res) =>{
+        quotesCollection.insertOne(req.body)
+        .then(result => {
+          res.redirect('/')
+        })
+        .catch(error => console.error(error));
+    })
+    
 
 app.listen(process.env.PORT || 3000,
   () => console.log(`server is running on port: ${process.env.PORT}` ));
+
+  app.put('/hamsters', (req, res) => {
+    quotesCollection.findOneAndUpdate(
+      { hamster: 'Hank' },
+      {
+        $set: {
+          hamster: req.body.hamster,
+          attribute: req.body.attribute
+        }
+      },
+      {
+        upsert: true
+      }
+    )
+      .then(result => res.json('Success'))
+      .catch(error => console.error(error))
+  })
+
+  app.delete('/hamsters', (req, res) => {
+    quotesCollection.deleteOne(
+      { hamster: req.body.hamster }
+    )
+      .then(result => {
+        if (result.deletedCount === 0) {
+          return res.json('no hamster to delete')
+        }
+        res.json('deleted a hamster')
+      })
+      .catch(error => console.error(error))
+  })
+
+.catch(error => console.error(error))
