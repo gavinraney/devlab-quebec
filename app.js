@@ -7,7 +7,6 @@ const bodyParser = require('body-parser')
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-
 const app = express()
 
 app.use(bodyParser.json())
@@ -20,15 +19,8 @@ app.get('/', function (req, res) {
         console.log('connected!');
         // perform actions on the collection object
        
+        client.close();
         console.log('closed!');
-
-    
-        const result = collection.find().toArray();
-         console.log(result.title);
-            
-            res.send(result.title);
-            // client.close();
-        
     });
 });
 
