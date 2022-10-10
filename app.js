@@ -75,4 +75,49 @@ const PORT = process.env.PORT || 3000
 
 .catch(error => console.error(error))
 
+//////////////////////////////////////////////////////////////////////
+async function main(){
+  try {
+      // Connect to the MongoDB cluster
+      await client.connect();
+
+      // Make the appropriate DB calls
+      databasesList = await client.db().admin().listDatabases();
+
+      console.log("Databases:");
+      databasesList.databases.forEach(db => console.log(` - ${db.name}`));
+
+      posts = await client.db("myFirstDatabase").collection("posts").findOne();
+
+      console.log(posts); 
+      
+      return posts; 
+      // return posts.findOne();
+
+
+  } catch (e) {
+      console.error(e);
+  } finally {
+      await client.close();
+  }
+}
+
+// main().catch(console.error);
+
+
+app.get('/', async function (req, res) {
+  // res.sendFile(path.join(__dirname, "index.html" )); 
+  // res.send('Hello ' + userName + ' from Node/Express/Heroku');
+
+  const result = await main().catch(console.error);
+
+  console.log("results: ", result.title); 
+
+ res.send(`results:  ${ result.title }`); 
+// res.send("farts"); 
+  });
+//////////////////////////////////////////////////////////////////////
+
+
+
 app.listen(PORT, console.log(`server is running on port: ${PORT}` ));
