@@ -5,9 +5,9 @@ const express = require('express')
 const path = require('node:path')
 const bodyParser = require('body-parser')
 const { MongoClient, ServerApiVersion } = require('mongodb');
-
 const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 const app = express()
+let posts = ''; 
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -41,9 +41,7 @@ app.get('/', function (req, res) {
         .catch(error => console.error(error));
     })
     
-
-app.listen(process.env.PORT || 3000,
-  () => console.log(`server is running on port: ${process.env.PORT}` ));
+const PORT = process.env.PORT || 3000
 
   app.put('/hamsters', (req, res) => {
     quotesCollection.findOneAndUpdate(
@@ -76,3 +74,5 @@ app.listen(process.env.PORT || 3000,
   })
 
 .catch(error => console.error(error))
+
+app.listen(PORT, console.log(`server is running on port: ${PORT}` ));
