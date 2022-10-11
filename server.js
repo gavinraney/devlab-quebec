@@ -1,10 +1,11 @@
-console.log('in app.js')
+console.log('in server.js')
 
 //require("dotenv").config();
 const express = require('express')
 const path = require('node:path')
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
+const app = express();
 
 //const { MongoClient, ServerApiVersion } = require('mongodb');
 //const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
