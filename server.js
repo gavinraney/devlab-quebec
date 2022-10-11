@@ -1,11 +1,22 @@
 console.log('in app.js')
 
-require("dotenv").config();
+//require("dotenv").config();
 const express = require('express')
 const path = require('node:path')
 const bodyParser = require('body-parser')
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+const MongoClient = require('mongodb').MongoClient
+//const { MongoClient, ServerApiVersion } = require('mongodb');
+//const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+MongoClient.connect('mongodb+srv://graney1:yesesd9@quebec.bzxlvoo.mongodb.net/?retryWrites=true&w=majority', { useUnifiedTopology: true})
+  .then(client => {
+    console.log('connected db')
+    const db = client.db('papa-db')
+    const quotesCollection = db.collection('books')
+
+    app.set('view engine', 'ejs');
+    app.use(bodyParser.urlencoded({ extended: true}));
+    app.use(bodyParser.json());
+    app.use(express.static('public'));
 const app = express()
 let posts = ''; 
 
@@ -14,14 +25,12 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.set('view engine', 'ejs');
 
 app.get('/', function (req, res) {
-    client.connect(err => {
         const collection = client.db("test").collection("devices");
         console.log('connected!');
         // perform actions on the collection object
        
         client.close();
         console.log('closed!');
-    });
 });
 
 
@@ -73,6 +82,6 @@ const PORT = process.env.PORT || 3000
       .catch(error => console.error(error))
   })
 
+})  
 .catch(error => console.error(error))
-
 app.listen(PORT, console.log(`server is running on port: ${PORT}` ));
