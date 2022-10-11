@@ -87,7 +87,7 @@ async function main(){
       console.log("Databases:");
       databasesList.databases.forEach(db => console.log(` - ${db.name}`));
 
-      posts = await client.db("myFirstDatabase").collection("posts").findOne();
+      posts = await client.db("quebec").collection("posts").findOne();
 
       console.log(posts); 
       
