@@ -5,6 +5,11 @@ const express = require('express')
 const path = require('node:path')
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
+
+app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({ extended: true}));
+app.use(bodyParser.json());
+app.use(express.static('public'));
 //const { MongoClient, ServerApiVersion } = require('mongodb');
 //const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 MongoClient.connect('mongodb+srv://graney1:yesesd9@quebec.bzxlvoo.mongodb.net/?retryWrites=true&w=majority', { useUnifiedTopology: true})
@@ -13,10 +18,6 @@ MongoClient.connect('mongodb+srv://graney1:yesesd9@quebec.bzxlvoo.mongodb.net/?r
     const db = client.db('papa-db')
     const quotesCollection = db.collection('books')
 
-    app.set('view engine', 'ejs');
-    app.use(bodyParser.urlencoded({ extended: true}));
-    app.use(bodyParser.json());
-    app.use(express.static('public'));
 const app = express()
 let posts = ''; 
 
