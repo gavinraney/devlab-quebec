@@ -12,8 +12,8 @@ const app = express();
 MongoClient.connect('mongodb+srv://graney1:yesesd9@quebec.bzxlvoo.mongodb.net/?retryWrites=true&w=majority', { useUnifiedTopology: true})
   .then(client => {
     console.log('connected db')
-    const db = client.db('papa-db')
-    const quotesCollection = db.collection('quebec')
+    const db = client.db('quebec')
+    const quotesCollection = db.collection('hamsters')
 
     app.set('view engine', 'ejs');
     app.use(bodyParser.urlencoded({ extended: true}));
