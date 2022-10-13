@@ -6,6 +6,12 @@ const path = require('node:path')
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
 const app = express();
+const PORT = (process.env.PORT || 3000) 
+
+app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({ extended: true}));
+app.use(bodyParser.json());
+app.use(express.static('public'));
 
 //const { MongoClient, ServerApiVersion } = require('mongodb');
 //const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
@@ -15,19 +21,16 @@ MongoClient.connect('mongodb+srv://graney1:yesesd9@quebec.bzxlvoo.mongodb.net/?r
     const db = client.db('quebec')
     const quotesCollection = db.collection('hamsters')
 
-    app.set('view engine', 'ejs');
-    app.use(bodyParser.urlencoded({ extended: true}));
-    app.use(bodyParser.json());
-    app.use(express.static('public'));
+   
 
-app.get('/', function (req, res) {
-        const collection = client.db("test").collection("devices");
-        console.log('connected!');
-        // perform actions on the collection object
+// app.get('/', function (req, res) {
+//         const collection = client.db("test").collection("devices");
+//         console.log('connected!');
+//         // perform actions on the collection object
        
-        client.close();
-        console.log('closed!');
-});
+//         client.close();
+//         console.log('closed!');
+// });
 
 
     app.get('/', (req,res)=>{
@@ -46,11 +49,7 @@ app.get('/', function (req, res) {
         .catch(error => console.error(error));
     })
     
-  app.listen(process.env.PORT || 3000,
-    () => console.log("server running..."));
-
-
-  app.put('/hamsters', (req, res) => {
+    app.put('/hamsters', (req, res) => {
     quotesCollection.findOneAndUpdate(
       { hamster: 'Hank' },
       {
@@ -82,4 +81,5 @@ app.get('/', function (req, res) {
   
 })
 .catch(error => console.error(error))
-//app.listen(PORT, console.log(`server is running on port: ${PORT}` ));
+
+app.listen(PORT, console.log(`server is running on port: ${PORT}` ));
