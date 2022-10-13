@@ -46,7 +46,9 @@ app.get('/', function (req, res) {
         .catch(error => console.error(error));
     })
     
-const PORT = process.env.PORT || 3000
+  app.listen(process.env.PORT || 3000,
+    () => console.log("server running..."));
+
 
   app.put('/hamsters', (req, res) => {
     quotesCollection.findOneAndUpdate(
@@ -77,7 +79,7 @@ const PORT = process.env.PORT || 3000
       })
       .catch(error => console.error(error))
   })
-
-})  
+  
+})
 .catch(error => console.error(error))
 //app.listen(PORT, console.log(`server is running on port: ${PORT}` ));
