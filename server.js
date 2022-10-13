@@ -13,7 +13,7 @@ MongoClient.connect('mongodb+srv://graney1:yesesd9@quebec.bzxlvoo.mongodb.net/?r
   .then(client => {
     console.log('connected db')
     const db = client.db('papa-db')
-    const quotesCollection = db.collection('books')
+    const quotesCollection = db.collection('quebec')
 
     app.set('view engine', 'ejs');
     app.use(bodyParser.urlencoded({ extended: true}));
