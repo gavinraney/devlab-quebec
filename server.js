@@ -13,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
+
 //const { MongoClient, ServerApiVersion } = require('mongodb');
 //const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 MongoClient.connect('mongodb+srv://graney1:yesesd9@quebec.bzxlvoo.mongodb.net/?retryWrites=true&w=majority', { useUnifiedTopology: true})
@@ -51,7 +52,7 @@ MongoClient.connect('mongodb+srv://graney1:yesesd9@quebec.bzxlvoo.mongodb.net/?r
     
     app.put('/hamsters', (req, res) => {
     quotesCollection.findOneAndUpdate(
-      { hamster: 'Hank' },
+      { hamster: 'michael' },
       {
         $set: {
           hamster: req.body.hamster,
